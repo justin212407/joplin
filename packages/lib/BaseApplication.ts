@@ -41,6 +41,7 @@ import EncryptionService from './services/e2ee/EncryptionService';
 import ResourceFetcher from './services/ResourceFetcher';
 import SearchEngineUtils from './services/search/SearchEngineUtils';
 import SearchEngine, { ComplexTerm, ProcessResultsRow } from './services/search/SearchEngine';
+import SemanticIndexer from './services/search/SemanticIndexer';
 import RevisionService from './services/RevisionService';
 import ResourceService from './services/ResourceService';
 import DecryptionWorker from './services/DecryptionWorker';
@@ -551,6 +552,17 @@ export default class BaseApplication {
 		}
 
 		if (action.type === 'NOTE_UPDATE_ONE') {
+			if (Setting.value('search.semanticSearchEnabled')) {
+				void (async () => {
+					try {
+						const noteId = action?.note?.id;
+						if (noteId) await SemanticIndexer.instance().indexNote(noteId);
+					} catch (error) {
+						console.warn('[SemanticIndexer] Could not index updated note', error);
+					}
+				})();
+			}
+
 			if (!action.changedFields.length ||
 				action.changedFields.includes('parent_id') ||
 				action.changedFields.includes('encryption_applied') ||
@@ -561,6 +573,17 @@ export default class BaseApplication {
 		}
 
 		if (action.type === 'NOTE_DELETE') {
+			if (Setting.value('search.semanticSearchEnabled')) {
+				void (async () => {
+					try {
+						const noteId = action?.id;
+						if (noteId) await SemanticIndexer.instance().deleteNote(noteId);
+					} catch (error) {
+						console.warn('[SemanticIndexer] Could not delete note embedding', error);
+					}
+				})();
+			}
+
 			doRefreshFolders = true;
 		}
 
@@ -885,6 +908,16 @@ export default class BaseApplication {
 		SearchEngine.instance().setDb(reg.db());
 		SearchEngine.instance().setLogger(reg.logger());
 		SearchEngine.instance().scheduleSyncTables();
+
+		if (Setting.value('search.semanticSearchEnabled')) {
+			void (async () => {
+				try {
+					await SemanticIndexer.instance().indexAll();
+				} catch (error) {
+					console.warn('[SemanticIndexer] Could not run initial semantic indexing', error);
+				}
+			})();
+		}
 
 		const currentFolderId = Setting.value('activeFolderId');
 		let currentFolder = null;

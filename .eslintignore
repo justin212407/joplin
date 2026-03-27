@@ -1487,6 +1487,7 @@ packages/lib/services/database/migrations/46.js
 packages/lib/services/database/migrations/47.js
 packages/lib/services/database/migrations/48.js
 packages/lib/services/database/migrations/49.js
+packages/lib/services/database/migrations/50.js
 packages/lib/services/database/migrations/index.js
 packages/lib/services/database/sqlStringToLines.js
 packages/lib/services/database/types.js
@@ -1670,12 +1671,18 @@ packages/lib/services/rest/utils/paginatedResults.js
 packages/lib/services/rest/utils/readonlyProperties.js
 packages/lib/services/rest/utils/requestFields.js
 packages/lib/services/rest/utils/requestPaginationOptions.js
+packages/lib/services/search/AgentSearchEngine.js
+packages/lib/services/search/EmbeddingService.js
+packages/lib/services/search/QueryRouter.js
 packages/lib/services/search/SearchEngine.resources.test.js
 packages/lib/services/search/SearchEngine.test.js
 packages/lib/services/search/SearchEngine.js
 packages/lib/services/search/SearchEngineUtils.test.js
 packages/lib/services/search/SearchEngineUtils.js
 packages/lib/services/search/SearchFilter.test.js
+packages/lib/services/search/SemanticIndexer.js
+packages/lib/services/search/SemanticSearchEngine.js
+packages/lib/services/search/VectorStore.js
 packages/lib/services/search/filterParser.test.js
 packages/lib/services/search/filterParser.js
 packages/lib/services/search/gotoAnythingStyleQuery.test.js
@@ -1760,6 +1767,7 @@ packages/lib/themes/solarizedDark.js
 packages/lib/themes/solarizedLight.js
 packages/lib/themes/type.js
 packages/lib/time.js
+packages/lib/tools/semanticSearchPocTest.js
 packages/lib/types.js
 packages/lib/urlUtils.js
 packages/lib/utils/ActionLogger.test.js

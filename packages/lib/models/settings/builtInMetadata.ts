@@ -1724,6 +1724,23 @@ const builtInMetadata = (Setting: typeof SettingType) => {
 		'searchEngine.lastProcessedChangeId': { value: 0, type: SettingItemType.Int, public: false },
 		'revisionService.lastProcessedChangeId': { value: 0, type: SettingItemType.Int, public: false },
 
+		'search.semanticSearchEnabled': {
+			value: false,
+			type: SettingItemType.Bool,
+			public: true,
+			section: 'search',
+			label: () => 'Enable AI semantic search (experimental)',
+		},
+
+		'search.aiApiKey': {
+			value: '',
+			type: SettingItemType.String,
+			public: true,
+			secure: true,
+			section: 'search',
+			label: () => 'AI API key for agent search',
+		},
+
 		'searchEngine.initialIndexingDone': { value: false, type: SettingItemType.Bool, public: false },
 		'searchEngine.lastProcessedResource': { value: '', type: SettingItemType.String, public: false },
 

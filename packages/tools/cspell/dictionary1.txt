@@ -379,3 +379,8 @@ gumbo
 Guyane
 gvim
 Haïti
+huggingface
+mistralai
+openai
+xenova
+Xenova
